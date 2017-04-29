@@ -3,7 +3,7 @@
 #include "json.hpp"
 #include "PID.h"
 #include <math.h>
-#define TWIDDLE 1
+#define TWIDDLE 2
 
 // for convenience
 using json = nlohmann::json;
@@ -35,7 +35,7 @@ int main() {
 	// The debugCoundter filters such messages
 	int debugCounter = 0;
   	  uWS::Hub h;
-  	  PID speedPid = PID(.1 , .0001 , 1.);
+  	  PID speedPid = PID(.125 , .0001 , 0.797906);
   	  PID steerPid = PID(0.071769, 0.00411344, 0.974954);
 
   	  h.onMessage([&steerPid, &speedPid, &debugCounter](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {

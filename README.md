@@ -27,3 +27,6 @@ This repository is my implementation of the Udacity self-driving car project. Th
 3. Compile: `cmake .. && make`
 4. Run it: `./pid`. 
 
+## Determination of the PID values
+
+The PID values were determined using initial values which are stable and then using the twiddle algorithm. The values are hereby updated if the mean squared error of the cte is smaller and no manual interaction happend. If manual interaction happens and it is early in the twiddling the twiddle is rested, else the value is skipped as the parameters are assumed unstable.
