@@ -30,3 +30,21 @@ This repository is my implementation of the Udacity self-driving car project. Th
 ## Determination of the PID values
 
 The PID values were determined using initial values which are stable and then using the twiddle algorithm. The values are hereby updated if the mean squared error of the cte is smaller and no manual interaction happend. If manual interaction happens and it is early in the twiddling the twiddle is rested, else the value is skipped as the parameters are assumed unstable.
+
+### Initial Values
+
+#### P-Value
+The P-Value gives the conversion factor from the current CTE error to the action (steering angle). As the CTE error is given in meters (which is approximatly between -5 and 5 on the pavement) and the steering angle as a value between -1 and 1, the P-value is expected to have an order of magnitude of approx. 0.1 as this would lead a steering angle of approx. 0.5 when being at the edge of the road.
+
+#### I-Value
+The I-Value gives the conversion from all accumulated CTE errors to the action (steering angle). As the integral CTE error is simply the sum of all the previous values which are handed approx. every 0.1s, the I-value is expected to be ten times smaller than the P-value, with an order of magnitude of 0.01. This change of the order of magnitude accounts for the normalising time to unit length, as the for the correct integration each summand has to be multiplied with length of the integration time, which is times 0.1.
+
+#### D-Value
+The D-Value gives the conversion from the derivative CTE errors to the action (steering angle). As the derivataive CTE error is approximated by the difference between the last two values which are handed with a difference of approx. 0.1s, the D-value is expected to be ten times bigger than the P-value, with an order of magnitude of 1. This change of the order of magnitude accounts for the normalising time to unit length, as the for the correct derivative the difference has be divided by the length of the integration time, which is times 10.
+
+### Final Values
+After running the twiddle algorithm the following final values were determined:
+- The final P-Value is 0.071769, which is close to the expected order of magnitude of 0.1. 
+- The final I-Value is 0.00411344, which is a bit smaller than a tenth of the P-value, but within the expected range.
+- The final D-Value is 0.974954, which is close to ten times the P-value and as well in the expected range.
+
